@@ -1,0 +1,7 @@
+{% extends "mainApp/base.html" %}
+{% block body_block %}
+    <div class="jumbotron">
+        <h1>Welcome to a project about users</h1>
+        <h2>{{ data.text|cut:"World" }} {{ data.number|add:"99" }}</h2>
+    </div>
+{% endblock %}
