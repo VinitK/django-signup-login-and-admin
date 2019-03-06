@@ -33,7 +33,7 @@ SECRET_KEY = 'l7eia-xs7pg(le&hk$i*gqs$joj2mr_p0u!e7=)9$9#4=zwf4j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vinitk.pythonanywhere.com', ]
 
 
 # Application definition
@@ -117,9 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
-ALLOWED_HOSTS = ['vinitk.pythonanywhere.com', ]
 
 
 # Internationalization
