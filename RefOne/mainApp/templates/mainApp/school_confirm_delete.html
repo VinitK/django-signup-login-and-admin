@@ -1,0 +1,16 @@
+{% extends "mainApp/mainAppbase.html"%}
+
+{% block title_block %}
+    <title>Deleting {{school.name}}</title>
+{% endblock %}
+
+{% block body_block %}
+<div class="jumbotron">
+    <h1>Delete {{school.name}}?</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Delete">
+        <a href="{% url 'mainApp:detail' pk=school.pk %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

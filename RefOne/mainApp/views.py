@@ -1,20 +1,62 @@
-from django.shortcuts import render
 from mainApp.forms import NewUserForm, UserProfileInfoForm
 
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 
+from django.shortcuts import render
+from django.views.generic import (View,
+                                  TemplateView,
+                                  ListView,
+                                  DetailView,
+                                  CreateView,
+                                  UpdateView,
+                                  DeleteView)
+from django.http import HttpResponseRedirect, HttpResponse
+
+from mainApp import models
+
+
 # Create your views here.
-def index(request):
-    data_dict = {'text':'Hello World!', 'number': 100}
-    return render(request, 'mainApp/index.html', context={'data': data_dict})
+
+class SchoolListView(ListView):
+    context_object_name = 'schools'
+    model = models.School
+    # if context_object_name is not defined
+    # then ListView automatically creates object named school_model and returns it
 
 
-def users(request):
-    user_list = User.objects.order_by('first_name')
-    return render(request, 'mainApp/users.html', context={'users': user_list})
+class SchoolDetailView(DetailView):
+    context_object_name = 'school_detail'
+    model = models.School
+    template_name = 'mainApp/school_detail.html'
+    # if context_object_name is not defined
+    # then DetailView automatically creates object named school and returns it
+
+
+class SchoolCreateView(CreateView):
+    fields = ('name', 'principal', 'location')
+    model = models.School
+
+
+class SchoolUpdateView(UpdateView):
+    fields = ('principal', 'location')
+    model = models.School
+
+
+class SchoolDeleteView(DeleteView):
+    model = models.School
+    success_url = reverse_lazy("mainApp:list")
+
+
+class IndexView(TemplateView):
+    template_name = 'mainApp/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['text'] = "Hello World!"
+        context['number'] = 100
+        return context
 
 
 def signup(request):
@@ -75,6 +117,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
 
 def special(request):
     return HttpResponse("You are logged in!")

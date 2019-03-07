@@ -1,5 +1,10 @@
 {% extends "mainApp/base.html" %}
 {% load staticfiles %}
+
+{% block title_block %}
+    <title>User Signup</title>
+{% endblock %}
+
 {% block body_block %}
     <div class="jumbotron">
         {% if registered %}
